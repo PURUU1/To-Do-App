@@ -19,7 +19,14 @@ function add(){
   inp.value =""
   let span = document.createElement("span");
   span.innerHTML = '\u00d7';
-  li.appendChild(span)
+  
+  let times = new Date();
+    let time = document.createElement("p")
+    time.innerHTML = times.getHours()  + ":" + times.getMinutes() ;
+
+    
+     li.appendChild(time)
+    li.appendChild(span)
     Swal.fire("task "+inp.value +" added!");
   }
    inp.value =""
@@ -72,4 +79,11 @@ function changeStyle() {
     } else {
         console.error("Element with id 'style' not found");
     }
+}
+
+ inp.onkeyup = function(e){ 
+  if(e.keyCode == 13){ 
+    console.log ("enter")
+add();
+  } 
 }
