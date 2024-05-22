@@ -22,7 +22,15 @@ function add(){
   
   let times = new Date();
     let time = document.createElement("p")
-    time.innerHTML = times.getHours()  + ":" + times.getMinutes() ;
+    let hour = times.getHours();
+    var timezone = "pm"
+    if(hour > 12){
+      timezone ="pm"
+    }
+    else{
+      timezone ="am"
+    }
+    time.innerHTML = hour  + ":" + times.getMinutes() +timezone;
 
     
      li.appendChild(time)
