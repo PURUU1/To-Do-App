@@ -1,0 +1,135 @@
+*{
+   user-select: none;
+  
+}
+html {
+  height: 100%;
+  width: 100%;
+}
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* line-height: 200px; */
+}
+.container{
+background-color:white;  
+  box-shadow: 16px 11px 43px 0px rgba(0,0,0,0.65);
+  width: 80%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h2{
+  text-align: center;
+}
+.cont2{
+  box-shadow: 16px 11px 43px 0px rgba(0,0,0,0.65);
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  /* padding: 0px; */
+  border-radius: 20px;
+  width: 60%;
+  height: 50px;
+}
+.cont2 input {
+  color: black;
+  border: none;
+  height: 100%;
+  border-radius: 20px;
+  width: 90%;
+  background-color: transparent;
+  
+  /* background-color: transparent; */
+}
+.cont2 button{
+  border: none;
+background-color:#7066E0;
+  padding: 5px;
+  border-radius: 20px;
+  height: 100%;
+  width: 100px;
+
+  
+}
+.box{
+  width: 80%;
+  margin: 20px;
+  /* background-color: grey; */
+}
+.box ul li{
+  position: relative;
+  margin: 10px;
+  list-style: none;
+}
+
+li {
+  position: relative; /* Ensure li is the nearest positioned ancestor */
+  list-style: none; /* Remove default bullet points */
+}
+
+li::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-size: cover;
+  background-image: url('unchecked.png');
+  
+  width: 20px; 
+  height: 20px;
+  left: -30px; 
+ 
+}
+ul li span{
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  top: -5px;
+  text-align: center;
+  /* line-height: 40px; */
+}
+.checked{
+  text-decoration: line-through;
+  color: #555;
+  cursor: pointer;
+}
+.checked::before{
+ background-image: url(Untitled4_20240522162903.png);
+cursor: pointer;
+}
+ul li span ::hover{
+  background-color: red;
+}
+
+#dark{
+  background-image: url(day-and-night.png);
+  border-radius: 50%;
+  box-shadow: 16px 11px 43px 0px rgba(0,0,0,0.65);
+  /* color: white; */
+  /* background-color: white; */
+  /* position: absolute; */
+ 
+  width: 50px;
+  height: 50px;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+  align-items: flex-end;
+  justify-content: right;
+}
+.con3{
+  margin: 10px;
+  width: 80%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
