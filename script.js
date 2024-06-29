@@ -1,56 +1,55 @@
 let box = document.querySelector("#box");
 
-function add(){
-  
+let listArray = []
+let newListArray = []
+function add() {
+
   let inp = document.querySelector("#inp");
   let box = document.querySelector("#box");
-  if(inp.value == ''){
+  if (inp.value == '') {
     Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "Please enter something!",
-      
+
     });
   }
-  else{
-  let li = document.createElement("li");
-  li.innerHTML = inp.value;
-  box.appendChild(li);
-  inp.value =""
-  let span = document.createElement("span");
-  span.innerHTML = '\u00d7';
-  
-  let times = new Date();
-    let time = document.createElement("p")
-    let hour = times.getHours();
-    var timezone = "pm"
-    if(hour > 12){
-      timezone ="pm"
-    }
-    else{
-      timezone ="am"
-    }
-    time.innerHTML = hour  + ":" + times.getMinutes() +timezone;
-
-    
- //    li.appendChild(time)
+  else {
+    let li = document.createElement("li");
+    listArray.push(inp.value)
+    console.log(listArray)
+    newListArray = JSON.stringify(listArray)
+    localStorage.setItem('array', newListArray);
+    li.innerHTML = inp.value;
+    box.appendChild(li);
+    inp.value = ""
+    let span = document.createElement("span");
+    span.innerHTML = '\u00d7';
     li.appendChild(span)
-    Swal.fire("task "+inp.value +" added!");
+    Swal.fire("task " + inp.value + " added!");
   }
-   inp.value =""
+  inp.value = ""
+
 }
 
 
 box.addEventListener("click", function(e) {
-if(e.target.tagName === "LI") {
-e.target.classList.toggle("checked");  
-  
-}
-else if(e.target.tagName === "SPAN") {
-e.target.parentElement.remove();
-  
-}
-},false);
+  if (e.target.tagName === "LI") {
+    e.target.classList.toggle("checked");
+
+  }
+  else if (e.target.tagName === "SPAN") {
+    e.target.parentElement.remove();
+    let targetvalue = e.target.parentElement.innerHTML
+    let indexofspan = targetvalue.indexOf('<span>×</span>')
+    console.log(targetvalue)
+    console.log(indexofspan)
+    let finalValue = targetvalue.slice(0, indexofspan)
+    console.log('a'+finalValue)
+    removeList(finalValue)
+
+  }
+}, false);
 
 
 // function changeStyle() {
@@ -64,35 +63,88 @@ e.target.parentElement.remove();
 //    }
 // }
 function changeStyle() {
-    console.log("style changed");
-    var style = document.getElementById('style');
-    if (style) {
-        var currentHref = style.getAttribute('href');
-        var newHref = currentHref.includes('style.css') ? 'dark.css' : 'style.css';
-        style.setAttribute('href', newHref);
-      if(newHref == 'dark.css'){
-        console.log('dark')
-        document.getElementById('dark').style.backgroundColor ='#282828'
-        document.getElementById('dark').style.filter = 'invert(1)'
+  console.log("style changed");
+  var style = document.getElementById('style');
+  if (style) {
+    var currentHref = style.getAttribute('href');
+    var newHref = currentHref.includes('style.css') ? 'dark.css' : 'style.css';
+    style.setAttribute('href', newHref);
+    if (newHref == 'dark.css') {
+      console.log('dark')
+      document.getElementById('dark').style.backgroundColor = '#282828'
+      document.getElementById('dark').style.filter = 'invert(1)'
 
-        document.head.innerHTML += '<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">'
-        document.head.innerHTML += '<script src="sweetalert2/dist/sweetalert2.min.js"></script>' 
-        // <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
-        // <script src="sweetalert2/dist/sweetalert2.min.js"></script>
-        // With SASS:
-      }
-      if(newHref == 'style.css'){
-        document.getElementById('dark').style.filter = ' '
-          document.getElementById('dark').style.backgroundColor = 'white'
-      }
-    } else {
-        console.error("Element with id 'style' not found");
+      document.head.innerHTML += '<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">'
+      document.head.innerHTML += '<script src="sweetalert2/dist/sweetalert2.min.js"></script>'
+      // <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+      // <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+      // With SASS:
     }
+    if (newHref == 'style.css') {
+      document.getElementById('dark').style.filter = ' '
+      document.getElementById('dark').style.backgroundColor = 'white'
+    }
+  } else {
+    console.error("Element with id 'style' not found");
+  }
 }
 
- inp.onkeyup = function(e){ 
-  if(e.keyCode == 13){ 
-    console.log ("enter")
-add();
-  } 
+inp.onkeyup = function(e) {
+  if (e.keyCode == 13) {
+    console.log("enter")
+    add();
+  }
+}
+function setList() {
+
+}
+function renderList() {
+
+
+  let item = localStorage.getItem('array')
+  let retArray = JSON.parse(item)
+
+
+  retArray.map((value, index) => {
+    let li = document.createElement("li");
+    li.innerHTML = value;
+
+    box.appendChild(li);
+
+    let span = document.createElement("span");
+    span.innerHTML = '\u00d7';
+    li.appendChild(span)
+    Swal.fire("past tasks loaded!");
+
+    inp.value = ""
+  })
+
+}
+  let item
+let retArray 
+let newArray
+let indexpos
+function removeList(findvalue) {
+  item = localStorage.getItem('array')
+  retArray = JSON.parse(item)
+  
+  retArray.map((value, index) => {
+    console.log('remove')
+  
+      
+  /*  console.log('value :'+value)
+      console.log('finalvalue :'+ findvalue)
+      console.log(retArray.indexOf(findvalue))
+  */  if(value === findvalue){
+console.log('matched')
+ newArray = retArray
+console.log(newArray)
+indexpos = newArray.indexOf(findvalue)
+      newArray.splice(indexpos,1)
+console.log('after cut : '+newArray) 
+      newListArray2 = JSON.stringify(newArray)
+      localStorage.setItem('array',newListArray2)
+    }
+  })
+
 }
