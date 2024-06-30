@@ -1,8 +1,13 @@
 let box = document.querySelector("#box");
-
-let listArray = []
 let newListArray = []
+localStorage.setItem('array',newListArray)
+
 function add() {
+  let listArray = []
+let newListArray = []
+let data
+let dataArray = []
+  let item
 
   let inp = document.querySelector("#inp");
   let box = document.querySelector("#box");
@@ -15,11 +20,19 @@ function add() {
     });
   }
   else {
-    let li = document.createElement("li");
+    item = localStorage.getItem('array')
+  retArray = JSON.parse(item)
+
+
+    
+    console.log(retArray)
+
+    listArray = retArray
+    console.log(listArray )
     listArray.push(inp.value)
-    console.log(listArray)
     newListArray = JSON.stringify(listArray)
     localStorage.setItem('array', newListArray);
+    let li = document.createElement("li");
     li.innerHTML = inp.value;
     box.appendChild(li);
     inp.value = ""
@@ -45,7 +58,7 @@ box.addEventListener("click", function(e) {
     console.log(targetvalue)
     console.log(indexofspan)
     let finalValue = targetvalue.slice(0, indexofspan)
-    console.log('a'+finalValue)
+    console.log('a' + finalValue)
     removeList(finalValue)
 
   }
@@ -98,11 +111,13 @@ inp.onkeyup = function(e) {
 function setList() {
 
 }
+let item
+let retArray = []
 function renderList() {
 
 
-  let item = localStorage.getItem('array')
-  let retArray = JSON.parse(item)
+  item = localStorage.getItem('array')
+  retArray = JSON.parse(item)
 
 
   retArray.map((value, index) => {
@@ -120,30 +135,28 @@ function renderList() {
   })
 
 }
-  let item
-let retArray 
 let newArray
 let indexpos
 function removeList(findvalue) {
   item = localStorage.getItem('array')
   retArray = JSON.parse(item)
-  
+
   retArray.map((value, index) => {
     console.log('remove')
-  
-      
+
+
   /*  console.log('value :'+value)
       console.log('finalvalue :'+ findvalue)
       console.log(retArray.indexOf(findvalue))
-  */  if(value === findvalue){
-console.log('matched')
- newArray = retArray
-console.log(newArray)
-indexpos = newArray.indexOf(findvalue)
-      newArray.splice(indexpos,1)
-console.log('after cut : '+newArray) 
+  */  if (value === findvalue) {
+      console.log('matched')
+      newArray = retArray
+      console.log(newArray)
+      indexpos = newArray.indexOf(findvalue)
+      newArray.splice(indexpos, 1)
+      console.log('after cut : ' + newArray)
       newListArray2 = JSON.stringify(newArray)
-      localStorage.setItem('array',newListArray2)
+      localStorage.setItem('array', newListArray2)
     }
   })
 
